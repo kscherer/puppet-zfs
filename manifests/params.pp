@@ -40,10 +40,7 @@ class zfs::params {
             }
             default: {
               $manage_repo      = false
-              $zfs_package_name = [
-                'zfs-dkms',
-                'zfsutils-linux',
-              ]
+              $zfs_package_name = 'zfsutils-linux'
             }
           }
         }
