@@ -116,19 +116,21 @@ class zfs::install {
     }
   }
 
-  # These need to be done here so the kernel settings are present before the
-  # package is installed and potentially loading the kernel module
-  $config = delete_undef_values({
-    'zfs_arc_max' => $::zfs::zfs_arc_max,
-    'zfs_arc_min' => $::zfs::zfs_arc_min,
-  })
+  if $::zfs::kmod_manage {
+    # These need to be done here so the kernel settings are present before the
+    # package is installed and potentially loading the kernel module
+    $config = delete_undef_values({
+      'zfs_arc_max' => $::zfs::zfs_arc_max,
+      'zfs_arc_min' => $::zfs::zfs_arc_min,
+    })
 
-  $config.each |$option,$value| {
-    ::kmod::option { "zfs ${option}":
-      module => 'zfs',
-      option => $option,
-      value  => $value,
-      before => Package[$::zfs::package_name],
+    $config.each |$option,$value| {
+      ::kmod::option { "zfs ${option}":
+        module => 'zfs',
+        option => $option,
+        value  => $value,
+        before => Package[$::zfs::package_name],
+      }
     }
   }
 

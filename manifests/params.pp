@@ -15,6 +15,7 @@ class zfs::params {
     'resilver.finish-notify.sh' => {},
     'scrub.finish-notify.sh'    => {},
   }
+  $kmod_manage      = true
 
   case $::osfamily {
     'RedHat': {

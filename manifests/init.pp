@@ -27,6 +27,7 @@ class zfs (
   Boolean                           $manage_repo    = $::zfs::params::manage_repo,
   Variant[String, Array[String, 1]] $package_name   = $::zfs::params::zfs_package_name,
   Boolean                           $service_manage = $::zfs::params::service_manage,
+  Boolean                           $kmod_manage    = $::zfs::params::kmod_manage,
   Optional[Integer[0]]              $zfs_arc_max    = undef,
   Optional[Integer[0]]              $zfs_arc_min    = undef,
 ) inherits ::zfs::params {
